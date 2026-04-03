@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — GEENii Agent Infrastructure</title>
+  <meta name="description" content="GEENii's three-layer agent architecture: open-source core, enterprise compliance, and vertical specialisation. Built on LangGraph, MPP-native, ISO/IEC 42001 compliant.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero {
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero-orb {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,229,200,0.08) 0%, transparent 70%);
+      position: absolute; top: -100px; right: -50px;
+      pointer-events: none;
+    }
+
+    /* Stack diagram */
+    .stack-diagram {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .stack-layer {
+      border-radius: var(--r-md);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border: 1px solid;
+      transition: all 0.3s var(--ease-out);
+      cursor: default;
+    }
+    .stack-layer:hover { transform: translateX(6px); }
+    .stack-layer.l-insp   { background: rgba(0,229,200,0.06);  border-color: rgba(0,229,200,0.2); }
+    .stack-layer.l-tools  { background: rgba(0,229,200,0.04);  border-color: rgba(0,229,200,0.15); }
+    .stack-layer.l-skills { background: rgba(0,229,200,0.025); border-color: rgba(0,229,200,0.1); }
+    .stack-layer.l-pro    { background: rgba(240,160,48,0.06); border-color: rgba(240,160,48,0.2); }
+    .stack-label-col { min-width: 140px; }
+    .stack-label-col h4 { font-size: 15px; margin-bottom: 2px; }
+    .stack-label-col .sub { font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 0.05em; }
+    .stack-desc { font-size: 13px; color: var(--text-muted); flex: 1; line-height: 1.5; }
+    .stack-tag { white-space: nowrap; }
+
+    /* Tech cards */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .tech-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--r-lg);
+      padding: 2rem;
+    }
+    .tech-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .tech-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+      background: var(--cyan-faint);
+      border: 1px solid rgba(0,229,200,0.2);
+    }
+    .tech-card h3 { font-size: 18px; margin-bottom: 4px; }
+    .tech-card .subtitle { font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; }
+    .tech-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .tech-list { list-style: none; margin-top: 16px; }
+    .tech-list li {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(26,47,74,0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tech-list li:last-child { border-bottom: none; }
+    .tech-list li::before { content: "▸"; color: var(--cyan-dim); font-size: 10px; }
+
+    /* Deployment options */
+    .deploy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .deploy-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--r-lg);
+      padding: 1.75rem;
+      text-align: center;
+    }
+    .deploy-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+    .deploy-card h4 { margin-bottom: 8px; }
+    .deploy-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    /* Quick start */
+    .quickstart {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+    }
+    .qs-header {
+      padding: 20px 24px;
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid var(--navy-border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .qs-step-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--cyan-faint);
+      border: 1px solid rgba(0,229,200,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--cyan-dim);
+      flex-shrink: 0;
+    }
+    .qs-title { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+    .qs-body {
+      padding: 0;
+    }
+    .qs-section {
+      border-bottom: 1px solid var(--navy-border);
+    }
+    .qs-section:last-child { border-bottom: none; }
+    .qs-section-header {
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+    pre {
+      background: var(--navy-deep);
+      padding: 20px 24px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--text-body);
+      overflow-x: auto;
+    }
+    .kw  { color: var(--cyan); }
+    .str { color: var(--amber); }
+    .cmt { color: var(--text-hint); font-style: italic; }
+    .fn  { color: #60d890; }
+
+    @media (max-width: 900px) {
+      .tech-grid, .deploy-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">🧠</div>
+      GEEN<span>ii</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html" class="active">Product</a></li>
+      <li><a href="verticals.html">Verticals</a></li>
+      <li><a href="marketplace.html">Marketplace</a></li>
+      <li><a href="enterprise.html">Enterprise</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="product.html" class="btn btn-ghost">Docs</a>
+      <a href="enterprise.html" class="btn btn-primary">Get started</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-orb" style="position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;"></div>
+    <div class="container" style="position:relative; z-index:1;">
+      <span class="eyebrow anim-fadeup">Architecture</span>
+      <h1 class="display-lg anim-fadeup anim-delay-1" style="max-width:640px;">The GEENii agent stack, explained.</h1>
+      <p class="lead anim-fadeup anim-delay-2" style="margin-top:16px;">A composable, ISO-compliant infrastructure built for industrial deployment — not hobbyist experimentation.</p>
+    </div>
+  </div>
+
+  <!-- THE UNIT -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">The GEENii unit</span>
+        <h2 class="display-md">One agent. Four layers.</h2>
+        <p class="lead" style="margin-top:12px;">Every GEENii is composed of four stacked components — each independently swappable, each billable per call.</p>
+      </div>
+
+      <div class="stack-diagram">
+        <div class="stack-layer l-pro">
+          <div class="stack-label-col">
+            <h4>Pro Skills</h4>
+            <div class="sub">Enterprise tier</div>
+          </div>
+          <div class="stack-desc">Certified, SLA-backed specialist modules. Protein-folding analysis, financial risk scoring, regulatory compliance checkers. Require enterprise plan.</div>
+          <div class="stack-tag"><span class="tag tag-amber">Enterprise</span></div>
+        </div>
+        <div class="stack-layer l-skills">
+          <div class="stack-label-col">
+            <h4>Skills</h4>
+            <div class="sub">Marketplace tier</div>
+          </div>
+          <div class="stack-desc">Community and partner-built modules. Rented per-call via machine payments. Any agent can autonomously acquire and use skills via MPP.</div>
+          <div class="stack-tag"><span class="tag tag-cyan">$0.05/call</span></div>
+        </div>
+        <div class="stack-layer l-tools">
+          <div class="stack-label-col">
+            <h4>Tools</h4>
+            <div class="sub">Execution layer</div>
+          </div>
+          <div class="stack-desc">Code execution, web access, file systems, API integrations, database connectors. The hands of the agent — what it can do in the world.</div>
+          <div class="stack-tag"><span class="tag tag-muted">Built-in</span></div>
+        </div>
+        <div class="stack-layer l-insp">
+          <div class="stack-label-col">
+            <h4>INSP</h4>
+            <div class="sub">Inspiration / persona</div>
+          </div>
+          <div class="stack-desc">The agent's core identity, system prompt, domain expertise, and behavioural constraints. Vertical-specific INSPs ship pre-tuned for BioTech, iGaming, and Gov.</div>
+          <div class="stack-tag"><span class="tag tag-cyan">Foundation</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" style="max-width:1200px; margin:0 auto;">
+
+  <!-- TECH STACK -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Technology</span>
+        <h2 class="display-md">Built on the best<br>of the agentic stack.</h2>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-card-header">
+            <div class="tech-icon">🔀</div>
+            <div>
+              <h3>LangGraph Orchestration</h3>
+              <div class="subtitle">Complex cyclic workflows</div>
+            </div>
+          </div>
+          <p>GEENii uses LangGraph for complex, cyclic agent workflows with built-in self-correction loops. Agents detect their own errors in financial data and molecular analysis, and autonomously retry with refined reasoning — eliminating hallucinations in critical outputs.</p>
+          <ul class="tech-list">
+            <li>Cyclic workflow graphs with state management</li>
+            <li>Self-correction loops on structured outputs</li>
+            <li>Multi-agent coordination & handoffs</li>
+            <li>Deterministic execution traces for audit</li>
+          </ul>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-card-header">
+            <div class="tech-icon">💳</div>
+            <div>
+              <h3>Machine Payments Protocol</h3>
+              <div class="subtitle">x402 · Stripe MPP · Skyfire</div>
+            </div>
+          </div>
+          <p>GEENii is the first agent OS with payments as a first-class citizen. Agents can autonomously rent skills, pay for API access, and receive payment — all via the HTTP 402 standard and Stripe's Machine Payments Protocol. No human in the loop.</p>
+          <ul class="tech-list">
+            <li>HTTP 402 / x402 native support</li>
+            <li>Stripe MPP for high-frequency micropayments</li>
+            <li>Skyfire agent wallets with spending policies</li>
+            <li>Bittensor (TAO) for decentralised compute</li>
+          </ul>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-card-header">
+            <div class="tech-icon" style="background:var(--amber-faint); border-color:rgba(240,160,48,0.2);">🛡️</div>
+            <div>
+              <h3>ISO/IEC 42001 Compliance</h3>
+              <div class="subtitle">Built in, not bolted on</div>
+            </div>
+          </div>
+          <p>GEENii's compliance architecture is woven into the core, not a post-hoc layer. Every agent action is logged, every decision is auditable, and the entire system is certified to ISO/IEC 42001 — the international AI management system standard.</p>
+          <ul class="tech-list">
+            <li>Immutable audit trails on all agent actions</li>
+            <li>Role-based access control (RBAC)</li>
+            <li>Data residency controls (EU + DACH)</li>
+            <li>GDPR-native data handling</li>
+          </ul>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-card-header">
+            <div class="tech-icon" style="background:rgba(60,140,220,0.08); border-color:rgba(60,140,220,0.2);">🔌</div>
+            <div>
+              <h3>Consumer AI Hybrid Mode</h3>
+              <div class="subtitle">Best of both worlds</div>
+            </div>
+          </div>
+          <p>Use personal AI assistants for consumer-facing interfaces (WhatsApp, Telegram, web) while GEENii handles the scalable backend orchestration. Get the UX flexibility of consumer tools with the reliability of enterprise infrastructure.</p>
+          <ul class="tech-list">
+            <li>Personal AI assistant as front-end interface</li>
+            <li>GEENii as backend orchestration layer</li>
+            <li>Unified skill access across both systems</li>
+            <li>Gradual migration path from consumer AI tools</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPLOYMENT -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Deployment</span>
+        <h2 class="display-md">Your infrastructure.<br>Your rules.</h2>
+      </div>
+
+      <div class="deploy-grid">
+        <div class="deploy-card">
+          <span class="deploy-icon">☁️</span>
+          <h4>GEENii Cloud</h4>
+          <p>Managed, fully hosted. Automatic updates, built-in redundancy, and global edge deployment. Start in minutes.</p>
+          <div style="margin-top:16px;"><span class="tag tag-cyan">Free tier available</span></div>
+        </div>
+        <div class="deploy-card" style="border-color:rgba(240,160,48,0.2);">
+          <span class="deploy-icon">🖥️</span>
+          <h4>On-Premise</h4>
+          <p>Full on-premise deployment. No cloud dependency. Run GEENii inside your own data center with complete data sovereignty.</p>
+          <div style="margin-top:16px;"><span class="tag tag-amber">Enterprise</span></div>
+        </div>
+        <div class="deploy-card">
+          <span class="deploy-icon">🔒</span>
+          <h4>Air-Gapped</h4>
+          <p>Completely isolated from the internet. For defense and government use cases where zero external connectivity is required.</p>
+          <div style="margin-top:16px;"><span class="tag tag-blue">Gov / Defense</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICKSTART -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Quick start</span>
+        <h2 class="display-md">Live in three steps.</h2>
+      </div>
+
+      <div class="quickstart">
+        <div class="qs-header">
+          <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted); letter-spacing:0.08em; text-transform:uppercase;">Terminal</span>
+        </div>
+        <div class="qs-body">
+          <div class="qs-section">
+            <div class="qs-section-header">
+              <div class="qs-step-num">1</div>
+              <div class="qs-title">Install GEENii CLI</div>
+            </div>
+            <pre><span class="cmt"># Install via npm</span>
+<span class="fn">npm</span> install <span class="str">-g @geenii/cli</span>
+
+<span class="cmt"># Or via curl</span>
+<span class="fn">curl</span> <span class="str">-fsSL https://geenii.io/install.sh</span> | sh</pre>
+          </div>
+          <div class="qs-section">
+            <div class="qs-section-header">
+              <div class="qs-step-num">2</div>
+              <div class="qs-title">Initialise your first agent</div>
+            </div>
+            <pre><span class="fn">geenii</span> init my-agent <span class="str">--vertical biotech</span>
+
+<span class="cmt"># This scaffolds:</span>
+<span class="cmt"># ├── geenii.config.ts   (agent config)</span>
+<span class="cmt"># ├── insp/              (agent persona)</span>
+<span class="cmt"># ├── skills/            (skill registry)</span>
+<span class="cmt"># └── tools/             (tool definitions)</span></pre>
+          </div>
+          <div class="qs-section">
+            <div class="qs-section-header">
+              <div class="qs-step-num">3</div>
+              <div class="qs-title">Configure and deploy</div>
+            </div>
+            <pre><span class="cmt">// geenii.config.ts</span>
+<span class="kw">export default</span> {
+  <span class="fn">insp</span>: <span class="str">'biotech-analyst-v2'</span>,
+  <span class="fn">skills</span>: [<span class="str">'protein-folding'</span>, <span class="str">'pubmed-rag'</span>],
+  <span class="fn">compliance</span>: <span class="str">'iso-42001'</span>,
+  <span class="fn">payments</span>: { protocol: <span class="str">'mpp'</span>, budget: <span class="str">'$10/day'</span> },
+  <span class="fn">deployment</span>: <span class="str">'cloud'</span>  <span class="cmt">// or 'on-premise'</span>
+}
+
+<span class="cmt"># Deploy</span>
+<span class="fn">geenii</span> deploy <span class="str">--env production</span>
+<span class="cmt"># ✓ Agent live at https://agents.geenii.io/my-agent</span>
+<span class="cmt"># ✓ SLA: 99.9% · ISO-42001: verified · MPP: active</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:32px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <a href="enterprise.html" class="btn btn-primary btn-lg">Get started free</a>
+        <a href="enterprise.html" class="btn btn-ghost btn-lg">Enterprise docs →</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">GEEN<span>ii</span></div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="verticals.html">Verticals</a></li>
+      <li><a href="marketplace.html">Marketplace</a></li>
+      <li><a href="enterprise.html">Enterprise</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 GEENii · Enterprise AI Infrastructure · geenii.io</div>
+  </div>
+</footer>
+
+</body>
+</html>

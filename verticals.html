@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verticals — GEENii for BioTech, iGaming & Gov</title>
+  <meta name="description" content="GEENii vertical AI solutions for BioTech drug discovery, iGaming real-time support, and Government on-premise intelligence. ISO/IEC 42001 compliant.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero { padding: 120px 0 80px; position: relative; overflow: hidden; }
+
+    /* Vertical nav pills */
+    .vert-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 80px;
+    }
+    .vert-pill {
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--navy-border);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .vert-pill:hover { border-color: rgba(0,229,200,0.3); color: var(--text-primary); }
+    .vert-pill.active { background: var(--cyan-faint); border-color: rgba(0,229,200,0.4); color: var(--cyan); }
+
+    /* Vertical section */
+    .vert-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--navy-border);
+    }
+    .vert-section:first-of-type { border-top: none; }
+
+    .vert-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .vert-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      border-radius: var(--r-md);
+      margin-bottom: 24px;
+    }
+    .vert-badge-biotech { background: var(--cyan-faint); border: 1px solid rgba(0,229,200,0.2); }
+    .vert-badge-igaming { background: var(--amber-faint); border: 1px solid rgba(240,160,48,0.2); }
+    .vert-badge-gov     { background: rgba(60,140,220,0.08); border: 1px solid rgba(60,140,220,0.2); }
+    .vert-badge-fintech { background: rgba(80,200,140,0.08); border: 1px solid rgba(80,200,140,0.2); }
+    .vert-badge-icon { font-size: 20px; }
+    .vert-badge-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .vert-badge-biotech .vert-badge-label { color: var(--cyan-dim); }
+    .vert-badge-igaming .vert-badge-label { color: var(--amber); }
+    .vert-badge-gov     .vert-badge-label { color: #60a0e0; }
+    .vert-badge-fintech .vert-badge-label { color: #50c88c; }
+
+    .vert-content h2 { margin-bottom: 16px; }
+    .vert-content p  { margin-bottom: 16px; font-size: 15px; }
+    .vert-content .lead { font-size: 17px; color: var(--text-body); }
+
+    .vert-specs {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .spec-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--r-md);
+      padding: 16px 20px;
+    }
+    .spec-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-hint);
+      margin-bottom: 4px;
+    }
+    .spec-val {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+    .spec-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    .feature-list {
+      list-style: none;
+      margin-top: 24px;
+    }
+    .feature-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(26,47,74,0.5);
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .feature-list li:last-child { border-bottom: none; }
+    .feature-list li::before {
+      content: "✓";
+      color: var(--cyan-dim);
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Use case quote */
+    .vert-quote {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--r-lg);
+      padding: 2rem;
+      margin-top: 24px;
+      border-left: 3px solid var(--cyan-dim);
+    }
+    .vert-quote p {
+      font-size: 15px;
+      color: var(--text-body);
+      line-height: 1.65;
+      font-style: italic;
+      margin: 0;
+    }
+    .vert-quote-attr {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      color: var(--text-hint);
+      margin-top: 12px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 900px) {
+      .vert-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">🧠</div>
+      GEEN<span>ii</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html">Product</a></li>
+      <li><a href="verticals.html" class="active">Verticals</a></li>
+      <li><a href="marketplace.html">Marketplace</a></li>
+      <li><a href="enterprise.html">Enterprise</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="product.html" class="btn btn-ghost">Docs</a>
+      <a href="enterprise.html" class="btn btn-primary">Get started</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-hero">
+    <div class="container">
+      <span class="eyebrow anim-fadeup">Industry verticals</span>
+      <h1 class="display-lg anim-fadeup anim-delay-1" style="max-width:640px;">Built for industries where generic AI fails.</h1>
+      <p class="lead anim-fadeup anim-delay-2" style="margin-top:16px; max-width:560px;">GEENii ships pre-tuned vertical INSPs, specialist skills, and compliance frameworks for the domains that demand precision over experimentation.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="vert-nav">
+      <a href="#biotech" class="vert-pill active">🔬 BioTech</a>
+      <a href="#igaming" class="vert-pill">🎰 iGaming</a>
+      <a href="#gov" class="vert-pill">🏛️ Gov / Defense</a>
+      <a href="#fintech" class="vert-pill">📈 FinTech / Crypto</a>
+    </div>
+  </div>
+
+  <!-- BIOTECH -->
+  <div id="biotech" class="vert-section">
+    <div class="container">
+      <div class="vert-grid">
+        <div class="vert-content">
+          <div class="vert-badge vert-badge-biotech">
+            <span class="vert-badge-icon">🔬</span>
+            <span class="vert-badge-label">BioTech · Drug Discovery</span>
+          </div>
+          <h2 class="display-md">Drug discovery at<br>agent speed.</h2>
+          <p class="lead">GEENii's BioTech vertical transforms complex molecular data pipelines into autonomous, hallucination-free research workflows — from protein folding analysis to clinical trial data synthesis.</p>
+          <p>The BioTech INSP is pre-tuned on molecular biology, pharmacology, and regulatory science. Combined with the Protein Folding Analyser Pro Skill and PubMed RAG pipeline, agents can reason across vast scientific literature with verifiable accuracy.</p>
+          <p>LangGraph cyclic workflows enforce self-correction: when an agent produces a molecular property prediction, a secondary validation loop cross-checks against known compound databases before the result is surfaced.</p>
+
+          <ul class="feature-list">
+            <li>Protein-folding analysis via RAG pipeline (AlphaFold + PubMed)</li>
+            <li>LangGraph self-correction loops for hallucination elimination</li>
+            <li>Clinical trial data synthesis with citation trails</li>
+            <li>Regulatory documentation generation (EMA, FDA formats)</li>
+            <li>ISO/IEC 42001 audit trails for all research outputs</li>
+            <li>On-premise option for IP-sensitive research</li>
+          </ul>
+
+          <div style="margin-top:24px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="enterprise.html" class="btn btn-primary">Request BioTech demo</a>
+            <a href="marketplace.html" class="btn btn-ghost">Browse BioTech skills →</a>
+          </div>
+        </div>
+
+        <div class="vert-specs">
+          <div class="spec-card">
+            <div class="spec-label">Avg. analysis speed</div>
+            <div class="spec-val">4.2s</div>
+            <div class="spec-desc">protein structure analysis vs. 2+ hours manual</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Hallucination rate</div>
+            <div class="spec-val">&lt;0.1%</div>
+            <div class="spec-desc">on structured molecular data with self-correction</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Top Pro Skills</div>
+            <div class="spec-val" style="font-size:16px; line-height:1.5;">Protein Fold v2<br>PubMed RAG Pro<br>EMA Doc Generator</div>
+            <div class="spec-desc">Available from $0.05 – $0.20 / call</div>
+          </div>
+
+          <div class="vert-quote">
+            <p>"We needed agents that could reason about molecular interactions without hallucinating compound properties. GEENii's self-correction loops changed everything — our research team trusts the outputs."</p>
+            <div class="vert-quote-attr">— Head of Computational Biology, EU Pharma Group</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IGAMING -->
+  <div id="igaming" class="vert-section">
+    <div class="container">
+      <div class="vert-grid">
+        <div class="vert-content">
+          <div class="vert-badge vert-badge-igaming">
+            <span class="vert-badge-icon">🎰</span>
+            <span class="vert-badge-label">iGaming · Real-Time Support</span>
+          </div>
+          <h2 class="display-md">Real-time player<br>intelligence.</h2>
+          <p class="lead">iGaming demands sub-second response times, multi-jurisdiction regulatory compliance, and zero-tolerance for errors. GEENii's iGaming vertical is built for exactly this environment.</p>
+          <p>The iGaming INSP is tuned for responsible gambling frameworks, support escalation logic, and real-time fraud pattern recognition. Latency SLAs are contractually guaranteed — not aspirational targets.</p>
+          <p>Agents handle player queries, flag unusual activity, enforce deposit limits, and generate regulatory reports autonomously — freeing human teams for complex escalations only.</p>
+
+          <ul class="feature-list">
+            <li>Sub-100ms response SLA for player-facing interactions</li>
+            <li>Multi-jurisdiction compliance (UK GC, MGA, DSGVO)</li>
+            <li>Responsible gambling detection and intervention</li>
+            <li>Real-time fraud and bonus abuse pattern recognition</li>
+            <li>Autonomous regulatory reporting generation</li>
+            <li>24/7 player support in 40+ languages</li>
+          </ul>
+
+          <div style="margin-top:24px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="enterprise.html" class="btn btn-primary" style="background:var(--amber); color:#020810;">Request iGaming demo</a>
+            <a href="marketplace.html" class="btn btn-ghost">Browse iGaming skills →</a>
+          </div>
+        </div>
+
+        <div class="vert-specs">
+          <div class="spec-card" style="border-color:rgba(240,160,48,0.2);">
+            <div class="spec-label">Response latency SLA</div>
+            <div class="spec-val" style="color:var(--amber);">&lt;100ms</div>
+            <div class="spec-desc">P99 latency for player-facing interactions</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Jurisdictions covered</div>
+            <div class="spec-val">28+</div>
+            <div class="spec-desc">UK GC, MGA, KSA, MiCA, and more</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Top Pro Skills</div>
+            <div class="spec-val" style="font-size:16px; line-height:1.5;">Compliance Checker<br>Fraud Detector Pro<br>RG Intervention</div>
+            <div class="spec-desc">From $0.02 / call</div>
+          </div>
+
+          <div class="vert-quote" style="border-left-color:var(--amber);">
+            <p>"The latency SLA was the dealbreaker for us. Every other solution hedged on it. GEENii's contract guarantees sub-100ms P99 — and they deliver."</p>
+            <div class="vert-quote-attr">— CTO, Tier-1 Online Casino Group</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOV -->
+  <div id="gov" class="vert-section">
+    <div class="container">
+      <div class="vert-grid">
+        <div class="vert-content">
+          <div class="vert-badge vert-badge-gov">
+            <span class="vert-badge-icon">🏛️</span>
+            <span class="vert-badge-label">Gov · Defense · Public Sector</span>
+          </div>
+          <h2 class="display-md">Air-gapped intelligence<br>for high-stakes decisions.</h2>
+          <p class="lead">Government and defense organisations require AI that operates without any external network dependency. GEENii's air-gapped deployment mode was purpose-built as a Palantir-competitive alternative for European public sector.</p>
+          <p>Fully on-premise, fully auditable, fully compliant. GEENii handles procurement document analysis, intelligence synthesis, logistics optimisation, and decision-support workflows — all without a single byte leaving the facility.</p>
+
+          <ul class="feature-list">
+            <li>Air-gapped deployment — zero internet dependency</li>
+            <li>Full on-premise infrastructure (no SaaS, no external APIs)</li>
+            <li>VSLA (Verified SLA) for mission-critical uptime</li>
+            <li>Classified data handling with compartmentalisation</li>
+            <li>EU AI Act compliance framework (Article 6 high-risk)</li>
+            <li>Procurement document analysis and contracting agents</li>
+            <li>German-language support and documentation</li>
+          </ul>
+
+          <div style="margin-top:24px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="enterprise.html" class="btn btn-primary" style="background:#2a6aad; color:#fff;">Request Gov briefing</a>
+          </div>
+        </div>
+
+        <div class="vert-specs">
+          <div class="spec-card" style="border-color:rgba(60,140,220,0.2);">
+            <div class="spec-label">Deployment mode</div>
+            <div class="spec-val" style="color:#60a0e0; font-size:18px;">Air-gapped<br>on-premise</div>
+            <div class="spec-desc">Zero external network connectivity required</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Compliance standards</div>
+            <div class="spec-val" style="font-size:14px; line-height:1.6;">ISO 42001 · EU AI Act<br>BSI Grundschutz<br>NIS2 Directive</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Available as</div>
+            <div class="spec-val" style="font-size:16px;">Palantir alternative</div>
+            <div class="spec-desc">European-sovereign, open-core, auditable</div>
+          </div>
+
+          <div class="vert-quote" style="border-left-color:#2a6aad;">
+            <p>"We evaluated Palantir, but the lack of European data sovereignty and the black-box nature of the system were blockers. GEENii is the only platform that's both open-core and air-gappable."</p>
+            <div class="vert-quote-attr">— Deputy CTO, European Government Agency</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINTECH -->
+  <div id="fintech" class="vert-section">
+    <div class="container">
+      <div class="vert-grid">
+        <div class="vert-content">
+          <div class="vert-badge vert-badge-fintech">
+            <span class="vert-badge-icon">📈</span>
+            <span class="vert-badge-label">FinTech · Crypto · AI Consumer OS</span>
+          </div>
+          <h2 class="display-md">Autonomous finance.<br>Proactive intelligence.</h2>
+          <p class="lead">In 2026, a crypto service that only aggregates news is obsolete. GEENii's FinTech vertical turns your platform into an AI Consumer OS — one that creates plans, executes trades, and assesses risk without waiting to be asked.</p>
+          <p>The proactive agent model means GEENii monitors market conditions, evaluates portfolio exposure, and surfaces actionable recommendations autonomously — then executes via MPP payment rails when authorised thresholds are met.</p>
+
+          <ul class="feature-list">
+            <li>Proactive market monitoring and alert generation</li>
+            <li>Autonomous trade execution via MPP payment rails</li>
+            <li>Real-time risk scoring with LangGraph validation</li>
+            <li>Portfolio optimisation with explainable reasoning</li>
+            <li>MiCA / MiFID II regulatory compliance framework</li>
+            <li>Bittensor (TAO) integration for decentralised compute</li>
+          </ul>
+
+          <div style="margin-top:24px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="enterprise.html" class="btn btn-primary" style="background:#1a8a5a; color:#fff;">Request FinTech demo</a>
+            <a href="marketplace.html" class="btn btn-ghost">Browse FinTech skills →</a>
+          </div>
+        </div>
+
+        <div class="vert-specs">
+          <div class="spec-card">
+            <div class="spec-label">The shift</div>
+            <div class="spec-val" style="font-size:16px;">Attention Economy<br>→ Intention Economy</div>
+            <div class="spec-desc">Agents act on intent, not prompts</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Payment rails</div>
+            <div class="spec-val" style="font-size:16px;">MPP · x402<br>Skyfire · TAO</div>
+            <div class="spec-desc">Native machine-to-machine transactions</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Top Pro Skills</div>
+            <div class="spec-val" style="font-size:16px; line-height:1.5;">Risk Scorer Pro<br>Trade Executor<br>MiCA Compliance</div>
+            <div class="spec-desc">From $0.03 / call</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-banner" style="background:var(--navy-card); border:1px solid rgba(0,229,200,0.15); border-radius:var(--r-xl); padding:4rem; text-align:center; position:relative; overflow:hidden;">
+        <span class="eyebrow">Ready to go vertical?</span>
+        <h2 class="display-md" style="position:relative; z-index:1;">Talk to our industry team.</h2>
+        <p style="max-width:480px; margin:16px auto 32px; position:relative; z-index:1;">We'll configure a vertical-specific demo in your environment — with your data, your compliance requirements, your SLA needs.</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; position:relative; z-index:1;">
+          <a href="enterprise.html" class="btn btn-primary btn-lg">Book a vertical demo →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">GEEN<span>ii</span></div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html">Product</a></li>
+      <li><a href="marketplace.html">Marketplace</a></li>
+      <li><a href="enterprise.html">Enterprise</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 GEENii · Enterprise AI Infrastructure · geenii.io</div>
+  </div>
+</footer>
+
+<script>
+  // Active pill on scroll
+  const sections = ['biotech','igaming','gov','fintech'];
+  const pills = document.querySelectorAll('.vert-pill');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top < 200) current = id;
+    });
+    pills.forEach(p => {
+      p.classList.toggle('active', p.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+</body>
+</html>

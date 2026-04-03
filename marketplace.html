@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Marketplace — GEENii</title>
+  <meta name="description" content="The GEENii Skill Marketplace — 200+ specialist AI skills available per-call via machine payments. BioTech, iGaming, FinTech, Gov. From $0.02/call.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero { padding: 120px 0 60px; }
+
+    /* Stats row */
+    .mkt-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--navy-border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      border: 1px solid var(--navy-border);
+      margin-bottom: 64px;
+    }
+    .mkt-stat {
+      background: var(--navy-card);
+      padding: 1.75rem 2rem;
+      text-align: center;
+    }
+    .mkt-stat-val {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .mkt-stat-val .accent { color: var(--cyan); }
+    .mkt-stat-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+      align-items: center;
+    }
+    .filter-btn {
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid var(--navy-border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .filter-btn:hover { border-color: rgba(0,229,200,0.3); color: var(--text-primary); }
+    .filter-btn.active { background: var(--cyan-faint); border-color: rgba(0,229,200,0.4); color: var(--cyan); }
+
+    /* Skills grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .skill-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--r-lg);
+      padding: 1.5rem;
+      transition: all 0.3s var(--ease-out);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+    .skill-card:hover {
+      border-color: rgba(0,229,200,0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+    }
+    .skill-card.featured { border-color: rgba(0,229,200,0.2); background: rgba(0,229,200,0.03); }
+    .skill-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .skill-card-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: var(--cyan-faint);
+      border: 1px solid rgba(0,229,200,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .skill-card-icon.amber-icon { background: var(--amber-faint); border-color: rgba(240,160,48,0.2); }
+    .skill-card-icon.blue-icon { background: rgba(60,140,220,0.08); border-color: rgba(60,140,220,0.2); }
+    .skill-card-icon.green-icon { background: rgba(80,200,140,0.08); border-color: rgba(80,200,140,0.2); }
+    .skill-card h4 { font-size: 14px; margin-bottom: 2px; }
+    .skill-card .vert-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-hint);
+    }
+    .skill-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+    .skill-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(26,47,74,0.5);
+    }
+    .skill-price {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .skill-price .unit { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); font-weight: 400; }
+    .skill-calls {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-hint);
+      letter-spacing: 0.05em;
+    }
+    .skill-rating {
+      font-size: 12px;
+      color: var(--amber);
+    }
+
+    /* Pro badge */
+    .pro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: var(--amber-faint);
+      border: 1px solid rgba(240,160,48,0.3);
+      color: var(--amber);
+      margin-left: 6px;
+    }
+
+    /* Developer CTA */
+    .dev-cta {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--r-xl);
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      margin-top: 48px;
+    }
+    .dev-cta h2 { margin-bottom: 12px; }
+    .dev-cta p { font-size: 15px; margin-bottom: 20px; }
+    .revenue-breakdown {
+      background: var(--navy-deep);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--r-lg);
+      padding: 1.5rem;
+    }
+    .rev-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(26,47,74,0.4);
+      font-size: 13px;
+    }
+    .rev-row:last-child { border-bottom: none; }
+    .rev-label { color: var(--text-muted); }
+    .rev-val { font-family: var(--font-mono); font-weight: 500; color: var(--text-primary); }
+    .rev-val.highlight { color: var(--cyan); }
+
+    /* How it works */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--navy-border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      border: 1px solid var(--navy-border);
+    }
+    .how-step {
+      background: var(--navy-card);
+      padding: 2rem 1.5rem;
+      position: relative;
+    }
+    .how-num {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 800;
+      color: rgba(0,229,200,0.08);
+      line-height: 1;
+      margin-bottom: 12px;
+      letter-spacing: -0.04em;
+    }
+    .how-step h4 { margin-bottom: 6px; font-size: 15px; }
+    .how-step p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    @media (max-width: 900px) {
+      .mkt-stats { grid-template-columns: repeat(2, 1fr); }
+      .skills-grid { grid-template-columns: 1fr; }
+      .dev-cta { grid-template-columns: 1fr; }
+      .how-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">🧠</div>
+      GEEN<span>ii</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html">Product</a></li>
+      <li><a href="verticals.html">Verticals</a></li>
+      <li><a href="marketplace.html" class="active">Marketplace</a></li>
+      <li><a href="enterprise.html">Enterprise</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#submit" class="btn btn-ghost">Submit a skill</a>
+      <a href="enterprise.html" class="btn btn-primary">Get started</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-hero">
+    <div class="container">
+      <span class="eyebrow anim-fadeup">Skill Marketplace</span>
+      <h1 class="display-lg anim-fadeup anim-delay-1">The Google for agents.</h1>
+      <p class="lead anim-fadeup anim-delay-2" style="margin-top:16px; max-width:560px;">Any agent can rent specialist skills for cents per call — autonomously, via machine payments. No subscriptions. No humans in the loop.</p>
+    </div>
+  </div>
+
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+
+      <!-- Stats -->
+      <div class="mkt-stats">
+        <div class="mkt-stat">
+          <div class="mkt-stat-val">200<span class="accent">+</span></div>
+          <div class="mkt-stat-label">Skills available</div>
+        </div>
+        <div class="mkt-stat">
+          <div class="mkt-stat-val">$0.05<span class="accent"></span></div>
+          <div class="mkt-stat-label">Avg. per call</div>
+        </div>
+        <div class="mkt-stat">
+          <div class="mkt-stat-val">70<span class="accent">%</span></div>
+          <div class="mkt-stat-label">Dev revenue share</div>
+        </div>
+        <div class="mkt-stat">
+          <div class="mkt-stat-val">4<span class="accent"></span></div>
+          <div class="mkt-stat-label">Verticals covered</div>
+        </div>
+      </div>
+
+      <!-- How it works -->
+      <div style="margin-bottom:64px;">
+        <div class="section-header">
+          <span class="eyebrow">How it works</span>
+          <h2 class="display-md">Agents rent. Agents earn.</h2>
+        </div>
+        <div class="how-grid">
+          <div class="how-step">
+            <div class="how-num">01</div>
+            <h4>Agent needs a skill</h4>
+            <p>A running GEENii agent encounters a task outside its built-in capabilities — e.g. protein-folding analysis.</p>
+          </div>
+          <div class="how-step">
+            <div class="how-num">02</div>
+            <h4>Queries the Skill DB</h4>
+            <p>The agent queries the GEENii Skill Database, finds the best-matching skill ranked by accuracy and cost.</p>
+          </div>
+          <div class="how-step">
+            <div class="how-num">03</div>
+            <h4>Pays via MPP</h4>
+            <p>Micropayment is authorised via HTTP 402 / Stripe MPP using the agent's Skyfire wallet spending policy.</p>
+          </div>
+          <div class="how-step">
+            <div class="how-num">04</div>
+            <h4>Skill executes</h4>
+            <p>The skill runs, result is returned. Developer earns 70% of the call fee. No humans involved at any step.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter -->
+      <div class="filter-bar">
+        <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-hint); letter-spacing:0.08em; text-transform:uppercase; margin-right:4px;">Filter:</span>
+        <button class="filter-btn active" onclick="filterSkills('all', this)">All skills</button>
+        <button class="filter-btn" onclick="filterSkills('biotech', this)">🔬 BioTech</button>
+        <button class="filter-btn" onclick="filterSkills('igaming', this)">🎰 iGaming</button>
+        <button class="filter-btn" onclick="filterSkills('fintech', this)">📈 FinTech</button>
+        <button class="filter-btn" onclick="filterSkills('gov', this)">🏛️ Gov</button>
+        <button class="filter-btn" onclick="filterSkills('enterprise', this)">🏢 Enterprise</button>
+      </div>
+
+      <!-- Skills grid -->
+      <div class="skills-grid" id="skills-grid">
+
+        <div class="skill-card featured" data-vert="biotech">
+          <div class="skill-card-top">
+            <div class="skill-card-icon">🧬</div>
+            <div>
+              <h4>Protein Folding Analyser <span class="pro-badge">Pro</span></h4>
+              <div class="vert-tag">BioTech</div>
+            </div>
+          </div>
+          <p>AlphaFold-powered protein structure prediction with PubMed cross-validation. Returns confidence scores and literature citations.</p>
+          <div class="skill-card-footer">
+            <div class="skill-price">$0.05 <span class="unit">/ call</span></div>
+            <div class="skill-rating">★★★★★</div>
+            <div class="skill-calls">14.2k calls/day</div>
+          </div>
+        </div>
+
+        <div class="skill-card" data-vert="fintech">
+          <div class="skill-card-top">
+            <div class="skill-card-icon green-icon">📊</div>
+            <div>
+              <h4>Financial Risk Scorer</h4>
+              <div class="vert-tag">FinTech</div>
+            </div>
+          </div>
+          <p>Real-time portfolio risk assessment with VaR, CVaR, and drawdown metrics. MiFID II compliant output format.</p>
+          <div class="skill-card-footer">
+            <div class="skill-price">$0.03 <span class="unit">/ call</span></div>
+            <div class="skill-rating">★★★★★</div>
+            <div class="skill-calls">8.7k calls/day</div>
+          </div>
+        </div>
+
+        <div class="skill-card" data-vert="igaming">
+          <div class="skill-card-top">
+            <div class="skill-card-icon amber-icon">🎲</div>
+            <div>
+              <h4>iGaming Compliance Checker</h4>
+              <div class="vert-tag">iGaming</div>
+            </div>
+          </div>
+          <p>Multi-jurisdiction regulatory compliance check for player actions. Covers UK GC, MGA, and 26 other frameworks.</p>
+          <div class="skill-card-footer">
+            <div class="skill-price">$0.02 <span class="unit">/ call</span></div>
+            <div class="skill-rating">★★★★☆</div>
+            <div class="skill-calls">21.5k calls/day</div>
+          </div>
+        </div>
+
+        <div class="skill-card" data-vert="enterprise">
+          <div class="skill-card-top">
+            <div class="skill-card-icon">🔍</div>
+            <div>
+              <h4>RAG Document Pipeline <span class="pro-badge">Pro</span></h4>
+              <div class="vert-tag">Enterprise</div>
+            </div>
+          </div>
+          <p>Retrieval-augmented generation over private document corpora. Supports PDF, DOCX, HTML. Returns cited excerpts.</p>
+          <div class="skill-card-footer">
+            <div class="skill-price">$0.08 <span class="unit">/ call</span></div>
+            <div class="skill-rating">★★★★★</div>
+            <div class="skill-calls">6.1k calls/day</div>
+          </div>
+        </div>
+
+        <div class="skill-card" data-vert="biotech">
+          <div class="skill-card-top">
+            <div class="skill-card-icon">📖</div>
+            <div>
+              <h4>PubMed RAG Pro <span class="pro-badge">Pro</span></h4>
+              <div class="vert-tag">BioTech</div>
+            </div>
+          </div>
+          <p>Real-time search and synthesis across 36M+ PubMed abstracts. Structured output with PMID citations and confidence scores.</p>
+          <div class="skill-card-footer">
+            <div class="skill-price">$0.06 <span class="unit">/ call</span></div>
+            <div class="skill-rating">★★★★★</div>
+            <div class="skill-calls">9.3k calls/day</div>
+          </div>
+        </div>
+
+        <div class="skill-card" data-vert="igaming">
+          <div class="skill-card-top">
+            <div class="skill-card-icon amber-icon">🚨</div>
+            <div>
+              <h4>Responsible Gambling Detector</h4>
+              <div class="vert-tag">iGaming</div>
+            </div>
+          </div>
+          <p>Behavioural pattern analysis for early RG intervention. Flags chasing behaviour, session anomalies, and deposit velocity spikes.</p>
+          <div class="skill-card-footer">
+            <div class="skill-price">$0.02 <span class="unit">/ call</span></div>
+            <div class="skill-rating">★★★★☆</div>
+            <div class="skill-calls">18.1k calls/day</div>
+          </div>
+        </div>
+
+        <div class="skill-card" data-vert="gov">
+          <div class="skill-card-top">
+            <div class="skill-card-icon blue-icon">📋</div>
+            <div>
+              <h4>Procurement Doc Analyser <span class="pro-badge">Pro</span></h4>
+              <div class="vert-tag">Gov</div>
+            </div>
+          </div>
+          <p>Extracts requirements, pricing structures, and compliance obligations from public procurement documents (VgV, TED, OJEU).</p>
+          <div class="skill-card-footer">
+            <div class="skill-price">$0.10 <span class="unit">/ call</span></div>
+            <div class="skill-rating">★★★★★</div>
+            <div class="skill-calls">2.4k calls/day</div>
+          </div>
+        </div>
+
+        <div class="skill-card" data-vert="fintech">
+          <div class="skill-card-top">
+            <div class="skill-card-icon green-icon">⚡</div>
+            <div>
+              <h4>Trade Signal Generator</h4>
+              <div class="vert-tag">FinTech · Crypto</div>
+            </div>
+          </div>
+          <p>Multi-timeframe technical analysis across spot and derivatives markets. Returns entry/exit signals with confidence intervals.</p>
+          <div class="skill-card-footer">
+            <div class="skill-price">$0.04 <span class="unit">/ call</span></div>
+            <div class="skill-rating">★★★★☆</div>
+            <div class="skill-calls">11.8k calls/day</div>
+          </div>
+        </div>
+
+        <div class="skill-card" data-vert="enterprise">
+          <div class="skill-card-top">
+            <div class="skill-card-icon">📝</div>
+            <div>
+              <h4>EMA Regulatory Doc Writer <span class="pro-badge">Pro</span></h4>
+              <div class="vert-tag">BioTech · Regulatory</div>
+            </div>
+          </div>
+          <p>Generates EMA-formatted clinical trial documentation, IMPD sections, and quality dossier components from structured data inputs.</p>
+          <div class="skill-card-footer">
+            <div class="skill-price">$0.15 <span class="unit">/ call</span></div>
+            <div class="skill-rating">★★★★★</div>
+            <div class="skill-calls">1.2k calls/day</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Developer CTA -->
+      <div class="dev-cta" id="submit">
+        <div>
+          <span class="eyebrow">For developers</span>
+          <h2 class="display-md">Build a skill.<br>Earn per call.</h2>
+          <p>Submit a skill to the GEENii Marketplace and earn 70% of every call fee. Agents across the entire ecosystem can discover and pay for your skill autonomously — 24/7, no invoicing required.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="product.html" class="btn btn-primary">Read the skill SDK →</a>
+            <a href="enterprise.html" class="btn btn-ghost">Talk to our team</a>
+          </div>
+        </div>
+        <div>
+          <div class="revenue-breakdown">
+            <div style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-hint); margin-bottom:12px;">Revenue example · 10k calls/day</div>
+            <div class="rev-row">
+              <span class="rev-label">Skill price</span>
+              <span class="rev-val">$0.05 / call</span>
+            </div>
+            <div class="rev-row">
+              <span class="rev-label">Daily calls</span>
+              <span class="rev-val">10,000</span>
+            </div>
+            <div class="rev-row">
+              <span class="rev-label">Daily gross</span>
+              <span class="rev-val">$500</span>
+            </div>
+            <div class="rev-row">
+              <span class="rev-label">GEENii take (30%)</span>
+              <span class="rev-val">−$150</span>
+            </div>
+            <div class="rev-row">
+              <span class="rev-label">Your daily earnings</span>
+              <span class="rev-val highlight">$350</span>
+            </div>
+            <div class="rev-row">
+              <span class="rev-label">Monthly (est.)</span>
+              <span class="rev-val highlight">~$10,500</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">GEEN<span>ii</span></div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html">Product</a></li>
+      <li><a href="verticals.html">Verticals</a></li>
+      <li><a href="enterprise.html">Enterprise</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 GEENii · Enterprise AI Infrastructure · geenii.io</div>
+  </div>
+</footer>
+
+<script>
+  function filterSkills(vert, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.skill-card').forEach(card => {
+      if (vert === 'all' || card.dataset.vert === vert) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+</body>
+</html>
