@@ -1,0 +1,8 @@
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - "80"

@@ -1,0 +1,9 @@
+{
+  "routing": [
+    {
+      "serviceName": "nginx",
+      "containerPort": 80,
+      "access": "public"
+    }
+  ]
+}
