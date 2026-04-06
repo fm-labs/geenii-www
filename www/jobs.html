@@ -9,23 +9,73 @@
   <style>
     .page-hero { padding: 120px 0 80px; position: relative; overflow: hidden; }
 
-    .jobs-empty {
-      padding: 80px 0 120px;
-      text-align: center;
+    .job-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 0 0 120px;
     }
-    .jobs-empty-icon {
-      font-size: 48px;
-      margin-bottom: 24px;
+
+    .job-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 28px 32px;
+      background: #fff;
+      border: 1px solid rgba(30,30,20,0.12);
+      border-radius: 16px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s, transform 0.15s;
     }
-    .jobs-empty h2 {
-      margin-bottom: 16px;
+
+    .job-card:hover {
+      border-color: #1D9E75;
+      transform: translateY(-2px);
     }
-    .jobs-empty p {
-      max-width: 480px;
-      margin: 0 auto 32px;
-      color: var(--text-muted);
-      font-size: 15px;
-      line-height: 1.65;
+
+    .job-card-dept {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888780;
+      margin-bottom: 6px;
+    }
+
+    .job-card-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: #1a1a18;
+      margin-bottom: 12px;
+    }
+
+    .job-card-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .job-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(30,30,20,0.22);
+      color: #4a4a46;
+    }
+
+    .job-badge.hi {
+      background: #E1F5EE;
+      border-color: #1D9E75;
+      color: #085041;
+    }
+
+    .job-card-arrow {
+      font-size: 20px;
+      color: #1D9E75;
+      flex-shrink: 0;
     }
   </style>
 </head>
@@ -64,11 +114,112 @@
   </div>
 
   <div class="container">
-    <div class="jobs-empty">
-      <div class="jobs-empty-icon">📭</div>
-      <h2 class="display-sm">No open roles right now.</h2>
-      <p>We're not actively hiring at the moment, but we're always interested in exceptional people. If you think you'd be a great fit, reach out.</p>
-      <a href="enterprise.html" class="btn btn-primary">Get in touch →</a>
+    <div class="job-list">
+
+      <a href="jobs/skill-architect.html" class="job-card">
+        <div>
+          <p class="job-card-dept">Human-AI Operations</p>
+          <p class="job-card-title">Skill Architect</p>
+          <div class="job-card-badges">
+            <span class="job-badge hi">Full-time</span>
+            <span class="job-badge">Remote-first</span>
+            <span class="job-badge">Human role</span>
+          </div>
+        </div>
+        <span class="job-card-arrow">→</span>
+      </a>
+
+      <a href="jobs/behavioral-anthropologist.html" class="job-card">
+        <div>
+          <p class="job-card-dept">Agent Behavior Research</p>
+          <p class="job-card-title">Behavioral Anthropologist</p>
+          <div class="job-card-badges">
+            <span class="job-badge hi">Full-time</span>
+            <span class="job-badge">Remote-first</span>
+            <span class="job-badge">Human role</span>
+          </div>
+        </div>
+        <span class="job-card-arrow">→</span>
+      </a>
+
+      <a href="jobs/hitl-operator.html" class="job-card">
+        <div>
+          <p class="job-card-dept">Autonomous Systems Operations</p>
+          <p class="job-card-title">HITL Operator</p>
+          <div class="job-card-badges">
+            <span class="job-badge hi">Full-time</span>
+            <span class="job-badge">Hybrid / Remote</span>
+            <span class="job-badge">Human role</span>
+          </div>
+        </div>
+        <span class="job-card-arrow">→</span>
+      </a>
+
+      <a href="jobs/bot-psychoanalyst.html" class="job-card">
+        <div>
+          <p class="job-card-dept">Agent Psychology &amp; Diagnostics</p>
+          <p class="job-card-title">Bot-Psychoanalyst</p>
+          <div class="job-card-badges">
+            <span class="job-badge hi">Full-time</span>
+            <span class="job-badge">Remote-first</span>
+            <span class="job-badge">Human role</span>
+          </div>
+        </div>
+        <span class="job-card-arrow">→</span>
+      </a>
+
+      <a href="jobs/field-technician.html" class="job-card">
+        <div>
+          <p class="job-card-dept">Autonomous Systems Field Operations</p>
+          <p class="job-card-title">Field Technician</p>
+          <div class="job-card-badges">
+            <span class="job-badge hi">Full-time</span>
+            <span class="job-badge">On-site</span>
+            <span class="job-badge">Multiple locations</span>
+          </div>
+        </div>
+        <span class="job-card-arrow">→</span>
+      </a>
+
+      <a href="jobs/domain-imprinter.html" class="job-card">
+        <div>
+          <p class="job-card-dept">Knowledge Engineering</p>
+          <p class="job-card-title">Domain Imprinter</p>
+          <div class="job-card-badges">
+            <span class="job-badge hi">Full-time</span>
+            <span class="job-badge">Remote-first</span>
+            <span class="job-badge">Human role</span>
+          </div>
+        </div>
+        <span class="job-card-arrow">→</span>
+      </a>
+
+      <a href="jobs/prompt-engineer.html" class="job-card">
+        <div>
+          <p class="job-card-dept">Agent Design</p>
+          <p class="job-card-title">Prompt Engineer</p>
+          <div class="job-card-badges">
+            <span class="job-badge hi">Full-time</span>
+            <span class="job-badge">Remote-first</span>
+            <span class="job-badge">Human role</span>
+          </div>
+        </div>
+        <span class="job-card-arrow">→</span>
+      </a>
+
+      <a href="jobs/hardware-agent-engineer.html" class="job-card">
+        <div>
+          <p class="job-card-dept">Hardware Agent Engineering</p>
+          <p class="job-card-title">Hardware Agent Engineer</p>
+          <div class="job-card-badges">
+            <span class="job-badge hi">Full-time</span>
+            <span class="job-badge">Remote-first</span>
+            <span class="job-badge">Engineering role</span>
+          </div>
+        </div>
+        <span class="job-card-arrow">→</span>
+      </a>
+
     </div>
   </div>
 

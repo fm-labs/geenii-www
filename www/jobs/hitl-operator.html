@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HITL Operator — Open Position</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a18;
+      --ink-2: #4a4a46;
+      --ink-3: #888780;
+      --surface: #ffffff;
+      --surface-2: #f5f4f0;
+      --surface-3: #eeede8;
+      --border: rgba(30,30,20,0.12);
+      --border-strong: rgba(30,30,20,0.22);
+      --accent: #1D9E75;
+      --accent-dark: #0F6E56;
+      --accent-bg: #E1F5EE;
+      --accent-text: #085041;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: 'Instrument Sans', sans-serif;
+      background: #f0efe9;
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    .page { max-width: 820px; margin: 0 auto; }
+
+    .header { margin-bottom: 3rem; animation: fadeUp 0.5s ease both; }
+
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 0.6rem;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(38px, 7vw, 58px);
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    h1 em { font-style: italic; color: var(--accent); }
+
+    .tagline {
+      font-size: 15px;
+      color: var(--ink-2);
+      line-height: 1.7;
+      max-width: 580px;
+      margin-top: 0.75rem;
+    }
+
+    hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2.5rem; }
+
+    .badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 5px 13px;
+      border-radius: 20px;
+      border: 1px solid var(--border-strong);
+      color: var(--ink-2);
+      background: var(--surface);
+    }
+
+    .badge.hi {
+      background: var(--accent-bg);
+      border-color: var(--accent);
+      color: var(--accent-text);
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 1rem;
+    }
+
+    .prose-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .prose-card p {
+      font-size: 14.5px;
+      color: var(--ink-2);
+      line-height: 1.8;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 580px) { .two-col { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--surface-2);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.25rem 1rem;
+    }
+
+    .card-title {
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-3);
+      margin-bottom: 0.9rem;
+    }
+
+    .item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 0.65rem; }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 8px;
+      flex-shrink: 0;
+    }
+
+    .item p { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+
+    /* ── Growth track ── */
+    .track {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2rem;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+    }
+
+    .track-step {
+      flex: 1;
+      padding: 1rem 1rem 0.9rem;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+
+    .track-step:last-child { border-right: none; }
+
+    .track-step::after {
+      content: '→';
+      position: absolute;
+      right: -11px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      color: var(--ink-3);
+      z-index: 1;
+      background: var(--surface);
+      padding: 2px 0;
+    }
+
+    .track-step:last-child::after { display: none; }
+
+    .t-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--accent);
+      margin-bottom: 5px;
+    }
+
+    .t-name { font-size: 12.5px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+
+    @media (max-width: 580px) {
+      .track { flex-direction: column; }
+      .track-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .track-step::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -13px; transform: translateX(-50%); }
+      .track-step:last-child { border-bottom: none; }
+    }
+
+    /* ── Spec grid ── */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 480px) { .spec-grid { grid-template-columns: 1fr 1fr; } }
+
+    .spec-tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1rem 0.9rem;
+      transition: border-color 0.15s, transform 0.15s;
+      cursor: default;
+    }
+
+    .spec-tile:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    .s-icon { font-size: 18px; margin-bottom: 7px; display: block; }
+    .s-name { font-size: 12.5px; font-weight: 500; color: var(--ink); line-height: 1.3; margin-bottom: 3px; }
+    .s-sub { font-size: 11px; color: var(--ink-3); }
+
+    /* ── Code pills ── */
+    .code-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 1rem; }
+
+    .code-pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 11.5px;
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 4px 10px;
+      color: var(--ink-2);
+    }
+
+    /* ── Footer CTA ── */
+    .footer-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding: 1.5rem 1.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-top: 2.5rem;
+    }
+
+    .footer-bar .ft-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+    .footer-bar .ft-sub { font-size: 13px; color: var(--ink-3); }
+
+    .apply-btn {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 11px 24px;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .apply-btn:hover { background: var(--accent-dark); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-block { animation: fadeUp 0.45s ease both; }
+    .s1 { animation-delay: 0.05s; }
+    .s2 { animation-delay: 0.10s; }
+    .s3 { animation-delay: 0.15s; }
+    .s4 { animation-delay: 0.20s; }
+    .s5 { animation-delay: 0.25s; }
+    .s6 { animation-delay: 0.30s; }
+    .s7 { animation-delay: 0.35s; }
+    .s8 { animation-delay: 0.40s; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Back link -->
+  <a href="../jobs.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;margin-bottom:2rem;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">← All positions</a>
+
+  <!-- Header -->
+  <header class="header">
+    <p class="eyebrow">Open position · Autonomous Systems Operations</p>
+    <h1>HITL <em>Operator</em></h1>
+    <p class="tagline">Autonomous systems are powerful — but not perfect. You are the critical bridge between machine intelligence and real-world execution, stepping in precisely when automation reaches its limits.</p>
+  </header>
+
+  <hr />
+
+  <!-- Meta -->
+  <div class="meta-row section-block s1">
+    <span class="badge hi">Full-time</span>
+    <span class="badge">Hybrid / Remote</span>
+    <span class="badge">On-site as needed</span>
+    <span class="badge">Human role</span>
+    <span class="badge">Reports to: Autonomous Systems Supervisor</span>
+  </div>
+
+  <!-- The Role -->
+  <div class="section-block s2">
+    <p class="section-label">The role</p>
+    <div class="prose-card">
+      <p>As AI systems scale into real-world environments, edge cases, ambiguity, and unexpected situations remain inevitable. As a Human-in-the-Loop Operator, you monitor live autonomous systems — robotics, delivery agents, digital workers — and intervene when they reach the boundary of their confidence. You don't just catch failures; you generate the structured feedback that makes future failures less likely. Every override you file, every edge case you resolve, every anomaly you document makes the system smarter. You are not a fallback. You are a core part of the intelligence loop.</p>
+    </div>
+  </div>
+
+  <!-- What you'll do -->
+  <div class="section-block s3">
+    <p class="section-label">What you'll do</p>
+    <div class="two-col">
+      <div class="card">
+        <p class="card-title">Real-time monitoring</p>
+        <div class="item"><div class="dot"></div><p>Watch AI-driven systems across robotics, autonomous vehicles, and digital agents</p></div>
+        <div class="item"><div class="dot"></div><p>Detect when a system is hesitating, stuck, or operating outside its confidence range</p></div>
+        <div class="item"><div class="dot"></div><p>Track multiple concurrent agent streams without losing situational awareness</p></div>
+        <div class="item"><div class="dot"></div><p>Escalate critical incidents to engineering and operations teams</p></div>
+      </div>
+      <div class="card">
+        <p class="card-title">Intervention &amp; override</p>
+        <div class="item"><div class="dot"></div><p>Review and validate system decisions in uncertain or high-risk scenarios</p></div>
+        <div class="item"><div class="dot"></div><p>Override agent actions when required — decisively and without overcorrecting</p></div>
+        <div class="item"><div class="dot"></div><p>Guide systems through unexpected obstacles, environment changes, or ambiguous inputs</p></div>
+        <div class="item"><div class="dot"></div><p>Handle escalations from AI-powered customer systems on behalf of end users</p></div>
+      </div>
+      <div class="card">
+        <p class="card-title">Feedback &amp; improvement</p>
+        <div class="item"><div class="dot"></div><p>Provide structured feedback to engineering teams after every intervention</p></div>
+        <div class="item"><div class="dot"></div><p>Tag and categorize real-world scenarios for training data improvement</p></div>
+        <div class="item"><div class="dot"></div><p>Identify recurring failure patterns and submit root-cause reports</p></div>
+        <div class="item"><div class="dot"></div><p>Help define confidence thresholds and escalation triggers with the systems team</p></div>
+      </div>
+      <div class="card">
+        <p class="card-title">Documentation</p>
+        <div class="item"><div class="dot"></div><p>Log incidents, anomalies, and system behaviors with precision and context</p></div>
+        <div class="item"><div class="dot"></div><p>Maintain accurate override records for compliance and audit purposes</p></div>
+        <div class="item"><div class="dot"></div><p>Contribute to runbooks and escalation playbooks for new scenario types</p></div>
+        <div class="item"><div class="dot"></div><p>Flag documentation gaps when novel edge cases lack established procedures</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Example tasks -->
+  <div class="section-block s4">
+    <p class="section-label">Example tasks on a typical shift</p>
+    <div class="spec-grid">
+      <div class="spec-tile"><span class="s-icon">📦</span><p class="s-name">Failed delivery assist</p><p class="s-sub">Guide an autonomous system through an incomplete drop-off</p></div>
+      <div class="spec-tile"><span class="s-icon">🚧</span><p class="s-name">Obstacle resolution</p><p class="s-sub">Pilot a robot through unexpected environment changes</p></div>
+      <div class="spec-tile"><span class="s-icon">🔍</span><p class="s-name">Decision review</p><p class="s-sub">Validate flagged AI decisions for accuracy or safety risk</p></div>
+      <div class="spec-tile"><span class="s-icon">💬</span><p class="s-name">Customer escalation</p><p class="s-sub">Take over from an AI agent that has reached its limit</p></div>
+      <div class="spec-tile"><span class="s-icon">🏷</span><p class="s-name">Scenario tagging</p><p class="s-sub">Categorize real-world incidents for training data</p></div>
+      <div class="spec-tile"><span class="s-icon">📋</span><p class="s-name">Incident reporting</p><p class="s-sub">File structured reports on anomalies and near-misses</p></div>
+    </div>
+  </div>
+
+  <!-- What we're looking for -->
+  <div class="section-block s5">
+    <p class="section-label">What we're looking for</p>
+    <div class="two-col">
+      <div class="card">
+        <p class="card-title">Required</p>
+        <div class="item"><div class="dot"></div><p>Strong problem-solving instincts and attention to detail under time pressure</p></div>
+        <div class="item"><div class="dot"></div><p>Ability to make fast, confident decisions in ambiguous situations</p></div>
+        <div class="item"><div class="dot"></div><p>Comfort working with digital dashboards and monitoring interfaces</p></div>
+        <div class="item"><div class="dot"></div><p>Clear, structured written communication for documentation and escalation</p></div>
+        <div class="item"><div class="dot"></div><p>Sustained focus during monitoring tasks — you notice what drifts</p></div>
+      </div>
+      <div class="card">
+        <p class="card-title">Preferred</p>
+        <div class="item"><div class="dot"></div><p>Experience in operations, logistics, robotics, or technical support</p></div>
+        <div class="item"><div class="dot"></div><p>Familiarity with AI systems, automation tools, or autonomous vehicles</p></div>
+        <div class="item"><div class="dot"></div><p>Background in gaming, simulation, or remote system control</p></div>
+        <div class="item"><div class="dot"></div><p>Basic technical literacy — you don't need to code, but you read logs comfortably</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- What success looks like -->
+  <div class="section-block s6">
+    <p class="section-label">What success looks like</p>
+    <div class="prose-card">
+      <p>You can quickly read whether an AI system is confident or confused — and you act on that read without hesitation. Your interventions resolve situations without introducing new problems. Over time, your feedback measurably reduces the frequency of the edge cases you've seen before. You remain calm and decisive in unusual or time-sensitive situations, and your incident documentation is detailed enough that engineers can reproduce and fix what you flagged.</p>
+    </div>
+  </div>
+
+  <!-- Growth track -->
+  <div class="section-block s7">
+    <p class="section-label">Growth track</p>
+    <div class="track">
+      <div class="track-step">
+        <p class="t-num">01</p>
+        <p class="t-name">HITL Operator</p>
+      </div>
+      <div class="track-step">
+        <p class="t-num">02</p>
+        <p class="t-name">AI Operations Specialist</p>
+      </div>
+      <div class="track-step">
+        <p class="t-num">03</p>
+        <p class="t-name">Autonomous Systems Supervisor</p>
+      </div>
+      <div class="track-step">
+        <p class="t-num">04</p>
+        <p class="t-name">AI Safety &amp; Compliance Analyst</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer CTA -->
+  <div class="section-block s8">
+    <div class="footer-bar">
+      <div>
+        <p class="ft-title">HITL Operator — open now</p>
+        <p class="ft-sub">Hybrid / Remote · On-site as needed · Competitive salary</p>
+      </div>
+      <a class="apply-btn" href="mailto:careers@example.com?subject=Application: HITL Operator">Apply now →</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
