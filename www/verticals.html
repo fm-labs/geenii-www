@@ -51,10 +51,11 @@
       border-radius: var(--r-md);
       margin-bottom: 24px;
     }
-    .vert-badge-biotech { background: var(--cyan-faint); border: 1px solid rgba(0,229,200,0.2); }
-    .vert-badge-igaming { background: var(--amber-faint); border: 1px solid rgba(240,160,48,0.2); }
-    .vert-badge-gov     { background: rgba(60,140,220,0.08); border: 1px solid rgba(60,140,220,0.2); }
-    .vert-badge-fintech { background: rgba(80,200,140,0.08); border: 1px solid rgba(80,200,140,0.2); }
+    .vert-badge-biotech  { background: var(--cyan-faint); border: 1px solid rgba(0,229,200,0.2); }
+    .vert-badge-igaming  { background: var(--amber-faint); border: 1px solid rgba(240,160,48,0.2); }
+    .vert-badge-gov      { background: rgba(60,140,220,0.08); border: 1px solid rgba(60,140,220,0.2); }
+    .vert-badge-fintech  { background: rgba(80,200,140,0.08); border: 1px solid rgba(80,200,140,0.2); }
+    .vert-badge-cloudops { background: rgba(138,92,246,0.08); border: 1px solid rgba(138,92,246,0.2); }
     .vert-badge-icon { font-size: 20px; }
     .vert-badge-label {
       font-family: var(--font-mono);
@@ -62,10 +63,11 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
-    .vert-badge-biotech .vert-badge-label { color: var(--cyan-dim); }
-    .vert-badge-igaming .vert-badge-label { color: var(--amber); }
-    .vert-badge-gov     .vert-badge-label { color: #60a0e0; }
-    .vert-badge-fintech .vert-badge-label { color: #50c88c; }
+    .vert-badge-biotech  .vert-badge-label { color: var(--cyan-dim); }
+    .vert-badge-igaming  .vert-badge-label { color: var(--amber); }
+    .vert-badge-gov      .vert-badge-label { color: #60a0e0; }
+    .vert-badge-fintech  .vert-badge-label { color: #50c88c; }
+    .vert-badge-cloudops .vert-badge-label { color: #a78bfa; }
 
     .vert-content h2 { margin-bottom: 16px; }
     .vert-content p  { margin-bottom: 16px; font-size: 15px; }
@@ -181,7 +183,7 @@
     <div class="container">
       <span class="eyebrow anim-fadeup">Industry verticals</span>
       <h1 class="display-lg anim-fadeup anim-delay-1" style="max-width:640px;">Built for industries where generic AI fails.</h1>
-      <p class="lead anim-fadeup anim-delay-2" style="margin-top:16px; max-width:560px;">GEENii ships pre-tuned vertical INSPs, specialist skills, and compliance frameworks for the domains that demand precision over experimentation.</p>
+      <p class="lead anim-fadeup anim-delay-2" style="margin-top:16px; max-width:560px;">GEENii ships pre-tuned vertical Wizards, specialist skills, and compliance frameworks for the domains that demand precision over experimentation.</p>
     </div>
   </div>
 
@@ -191,6 +193,7 @@
       <a href="#igaming" class="vert-pill">🎰 iGaming</a>
       <a href="#gov" class="vert-pill">🏛️ Gov / Defense</a>
       <a href="#fintech" class="vert-pill">📈 FinTech / Crypto</a>
+      <a href="#cloudops" class="vert-pill">☁️ Cloud & Host Ops</a>
     </div>
   </div>
 
@@ -205,7 +208,7 @@
           </div>
           <h2 class="display-md">Drug discovery at<br>agent speed.</h2>
           <p class="lead">GEENii's BioTech vertical transforms complex molecular data pipelines into autonomous, hallucination-free research workflows — from protein folding analysis to clinical trial data synthesis.</p>
-          <p>The BioTech INSP is pre-tuned on molecular biology, pharmacology, and regulatory science. Combined with the Protein Folding Analyser Pro Skill and PubMed RAG pipeline, agents can reason across vast scientific literature with verifiable accuracy.</p>
+          <p>The BioTech Wizard is pre-tuned on molecular biology, pharmacology, and regulatory science. Combined with the Protein Folding Analyser Pro Skill and PubMed RAG pipeline, agents can reason across vast scientific literature with verifiable accuracy.</p>
           <p>LangGraph cyclic workflows enforce self-correction: when an agent produces a molecular property prediction, a secondary validation loop cross-checks against known compound databases before the result is surfaced.</p>
 
           <ul class="feature-list">
@@ -260,7 +263,7 @@
           </div>
           <h2 class="display-md">Real-time player<br>intelligence.</h2>
           <p class="lead">iGaming demands sub-second response times, multi-jurisdiction regulatory compliance, and zero-tolerance for errors. GEENii's iGaming vertical is built for exactly this environment.</p>
-          <p>The iGaming INSP is tuned for responsible gambling frameworks, support escalation logic, and real-time fraud pattern recognition. Latency SLAs are contractually guaranteed — not aspirational targets.</p>
+          <p>The iGaming Wizard is tuned for responsible gambling frameworks, support escalation logic, and real-time fraud pattern recognition. Latency SLAs are contractually guaranteed — not aspirational targets.</p>
           <p>Agents handle player queries, flag unusual activity, enforce deposit limits, and generate regulatory reports autonomously — freeing human teams for complex escalations only.</p>
 
           <ul class="feature-list">
@@ -406,6 +409,67 @@
     </div>
   </div>
 
+  <!-- CLOUDOPS -->
+  <div id="cloudops" class="vert-section">
+    <div class="container">
+      <div class="vert-grid">
+        <div class="vert-content">
+          <div class="vert-badge vert-badge-cloudops">
+            <span class="vert-badge-icon">☁️</span>
+            <span class="vert-badge-label">Cloud &amp; Host · Orchestration</span>
+          </div>
+          <h2 class="display-md">Infrastructure that<br>runs itself.</h2>
+          <p class="lead">Cloud environments are too complex, too dynamic, and too costly to manage manually at scale. GEENii's Cloud &amp; Host Ops vertical gives your infrastructure an autonomous nervous system — agents that observe, reason, and act without waiting for a human to open a ticket.</p>
+          <p>From Kubernetes workload orchestration to multi-cloud cost optimisation, GEENii agents operate continuously across your entire stack. When something drifts, degrades, or fails, the response is measured in seconds — not SLA minutes. When spend anomalies appear, right-sizing recommendations are generated and applied before the billing cycle closes.</p>
+          <p>The CloudOps Wizard is pre-tuned on infrastructure reasoning: it understands the difference between a noisy alert and a cascading failure, and it acts accordingly.</p>
+
+          <ul class="feature-list">
+            <li>Autonomous scaling and right-sizing across AWS, GCP, Azure, and bare metal</li>
+            <li>Incident detection and self-healing remediation — mean time to response under 4 minutes</li>
+            <li>Infrastructure-as-code generation, validation, and drift correction (Terraform, Ansible)</li>
+            <li>Kubernetes workload orchestration and pod lifecycle management</li>
+            <li>Continuous cost anomaly detection and spend optimisation</li>
+            <li>Compliance posture monitoring against SOC2, CIS benchmarks, and custom policies</li>
+            <li>On-call reduction through autonomous first-response agents before human escalation</li>
+          </ul>
+
+          <div style="margin-top:24px; display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="enterprise.html" class="btn btn-primary" style="background:#7c3aed; color:#fff;">Request CloudOps demo</a>
+            <a href="marketplace.html" class="btn btn-ghost">Browse CloudOps skills →</a>
+          </div>
+        </div>
+
+        <div class="vert-specs">
+          <div class="spec-card" style="border-color:rgba(138,92,246,0.2);">
+            <div class="spec-label">Avg. cloud spend reduction</div>
+            <div class="spec-val" style="color:#a78bfa;">30%+</div>
+            <div class="spec-desc">through autonomous right-sizing and waste elimination</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Mean time to remediation</div>
+            <div class="spec-val">&lt;4 min</div>
+            <div class="spec-desc">autonomous incident response before human escalation</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Infrastructure coverage</div>
+            <div class="spec-val" style="font-size:16px; line-height:1.6;">AWS · GCP · Azure<br>Kubernetes · Terraform<br>Bare metal</div>
+            <div class="spec-desc">Unified orchestration across heterogeneous stacks</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-label">Top Pro Skills</div>
+            <div class="spec-val" style="font-size:16px; line-height:1.5;">AutoScale Pro<br>Drift Corrector<br>Cost Sentinel</div>
+            <div class="spec-desc">From $0.02 / call</div>
+          </div>
+
+          <div class="vert-quote" style="border-left-color:#7c3aed;">
+            <p>"We had three engineers on permanent on-call rotation just to keep up with infra incidents. GEENii's agents handle the first-response layer entirely — our engineers now get paged for things that actually need human judgment."</p>
+            <div class="vert-quote-attr">— VP Engineering, Series C SaaS Platform</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- CTA -->
   <section class="section">
     <div class="container">
@@ -438,7 +502,7 @@
 
 <script>
   // Active pill on scroll
-  const sections = ['biotech','igaming','gov','fintech'];
+  const sections = ['biotech','igaming','gov','fintech','cloudops'];
   const pills = document.querySelectorAll('.vert-pill');
   window.addEventListener('scroll', () => {
     let current = '';

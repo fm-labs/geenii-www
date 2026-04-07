@@ -175,6 +175,11 @@
       text-transform: uppercase;
       color: var(--text-muted);
     }
+    .comp-header-cell.open-col {
+      color: #a78bfa;
+      background: rgba(138,92,246,0.04);
+      border-left: 1px solid rgba(138,92,246,0.15);
+    }
     .comp-header-cell.geenii-col {
       color: var(--cyan);
       background: rgba(0,229,200,0.04);
@@ -206,6 +211,13 @@
       flex-direction: column;
       justify-content: center;
     }
+    .comp-cell.open-col {
+      color: #a78bfa;
+      font-weight: 500;
+      background: rgba(138,92,246,0.03);
+      border-left: 1px solid rgba(138,92,246,0.1);
+    }
+    .comp-cell.open-col::before { content: "✓ "; opacity: 0.7; }
     .comp-cell.geenii-col {
       color: var(--cyan);
       font-weight: 500;
@@ -213,6 +225,17 @@
       border-left: 1px solid rgba(0,229,200,0.1);
     }
     .comp-cell.geenii-col::before { content: "✓ "; opacity: 0.7; }
+
+    .comp-cta-row {
+      display: grid;
+      grid-template-columns: 220px 1fr 1fr;
+      border-top: 1px solid var(--navy-border);
+    }
+    .comp-cta-cell {
+      padding: 20px;
+    }
+    .comp-cta-cell.open-col  { background: rgba(138,92,246,0.03); border-left: 1px solid rgba(138,92,246,0.1); }
+    .comp-cta-cell.geenii-col { background: rgba(0,229,200,0.03); border-left: 1px solid rgba(0,229,200,0.1); }
 
     /* ── Verticals preview ───────────────── */
     .verticals-grid {
@@ -315,7 +338,7 @@
       .arch-grid { grid-template-columns: 1fr; }
       .verticals-grid { grid-template-columns: 1fr; }
       .marketplace-preview { grid-template-columns: 1fr; }
-      .comp-header, .comp-row { grid-template-columns: 140px 1fr 1fr; }
+      .comp-header, .comp-row, .comp-cta-row { grid-template-columns: 140px 1fr 1fr; }
     }
   </style>
 </head>
@@ -406,15 +429,15 @@
     <div class="formula-block">
       <span class="eyebrow" style="margin-bottom:8px;">The GEENii unit</span>
       <div class="formula">
-        1 GEENii
+        GEENii
         <span class="op">=</span>
-        <span class="val">INSP</span>
+        <span class="val">Persona</span>
         <span class="op">+</span>
         <span class="val">Tools</span>
         <span class="op">+</span>
         <span class="val">Skills</span>
         <span class="op">+</span>
-        <span class="val">Pro Skills</span>
+        <span class="val">Data</span>
       </div>
       <p style="max-width:560px; margin:0 auto; font-size:15px;">Every GEENii agent is a composable unit of inspiration, tools, marketplace skills, and enterprise-grade pro skills — deployed in seconds, billed per call.</p>
     </div>
@@ -486,45 +509,60 @@
 <section class="section" style="padding-top:0;">
   <div class="container">
     <div class="section-header">
-      <span class="eyebrow">Comparison</span>
-      <h2 class="display-md">Why GEENii wins.</h2>
+      <span class="eyebrow">Two ways to run GEENii</span>
+      <h2 class="display-md">Pick your power level.</h2>
+      <p style="max-width:520px; margin: 12px auto 0; color:var(--text-muted); font-size:15px;">Whether you're taking back control of your own AI or deploying a mission-critical enterprise stack — there's a GEENii for that.</p>
     </div>
 
     <div class="comp-wrap">
       <div class="comp-header">
         <div class="comp-header-cell"></div>
-        <div class="comp-header-cell">Personal AI Assistants</div>
-        <div class="comp-header-cell geenii-col">GEENii</div>
+        <div class="comp-header-cell open-col">OpenGEENii</div>
+        <div class="comp-header-cell geenii-col">GEENii Enterprise</div>
       </div>
       <div class="comp-row">
-        <div class="comp-cell label-col">Focus</div>
-        <div class="comp-cell">Personal assistance / UX</div>
-        <div class="comp-cell geenii-col">Industry logic / orchestration</div>
+        <div class="comp-cell label-col">Made for</div>
+        <div class="comp-cell open-col">Individuals, builders & privacy-first users</div>
+        <div class="comp-cell geenii-col">Teams, enterprises & regulated industries</div>
       </div>
       <div class="comp-row">
-        <div class="comp-cell label-col">Enterprise</div>
-        <div class="comp-cell">Community support only</div>
-        <div class="comp-cell geenii-col">ISO/IEC 42001 + SLA-backed</div>
-      </div>
-      <div class="comp-row">
-        <div class="comp-cell label-col">Payments</div>
-        <div class="comp-cell">Optional plugins</div>
-        <div class="comp-cell geenii-col">Native MPP / x402 integration</div>
+        <div class="comp-cell label-col">Cost</div>
+        <div class="comp-cell open-col">Free & open-source</div>
+        <div class="comp-cell geenii-col">Custom pricing, SLA-backed</div>
       </div>
       <div class="comp-row">
         <div class="comp-cell label-col">Deployment</div>
-        <div class="comp-cell">Cloud only</div>
-        <div class="comp-cell geenii-col">Cloud + on-premise + air-gapped</div>
+        <div class="comp-cell open-col">Self-hosted on your own infrastructure</div>
+        <div class="comp-cell geenii-col">Cloud, on-premise & air-gapped</div>
       </div>
       <div class="comp-row">
-        <div class="comp-cell label-col">Target</div>
-        <div class="comp-cell">Devs & power users</div>
-        <div class="comp-cell geenii-col">BioTech, iGaming, Gov sector</div>
+        <div class="comp-cell label-col">Wizards</div>
+        <div class="comp-cell open-col">Community-built Wizards</div>
+        <div class="comp-cell geenii-col">Tailored vertical Wizards built by GEENii</div>
       </div>
       <div class="comp-row">
-        <div class="comp-cell label-col">Monetisation</div>
-        <div class="comp-cell">Donations / support</div>
-        <div class="comp-cell geenii-col">Skill marketplace + per-call billing</div>
+        <div class="comp-cell label-col">Skills</div>
+        <div class="comp-cell open-col">Full marketplace access</div>
+        <div class="comp-cell geenii-col">Marketplace + private skill libraries</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell label-col">Support</div>
+        <div class="comp-cell open-col">Community-driven</div>
+        <div class="comp-cell geenii-col">Dedicated team + ISO/IEC 42001</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell label-col">Compliance</div>
+        <div class="comp-cell open-col">Self-managed</div>
+        <div class="comp-cell geenii-col">EU AI Act, SOC2, BSI Grundschutz</div>
+      </div>
+      <div class="comp-cta-row">
+        <div class="comp-cta-cell"></div>
+        <div class="comp-cta-cell open-col">
+          <a href="opengeenii.html" class="btn btn-ghost" style="border-color:rgba(138,92,246,0.4); color:#a78bfa;">Explore OpenGEENii →</a>
+        </div>
+        <div class="comp-cta-cell geenii-col">
+          <a href="enterprise.html" class="btn btn-primary">Get Enterprise →</a>
+        </div>
       </div>
     </div>
   </div>

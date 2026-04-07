@@ -163,8 +163,128 @@
     .cmt { color: var(--text-hint); font-style: italic; }
     .fn  { color: #60d890; }
 
+    /* Container orchestration diagram */
+    .container-diagram {
+      background: var(--navy-deep);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--r-lg);
+      padding: 2rem;
+      font-family: var(--font-mono);
+    }
+    .cd-orch {
+      background: rgba(0,229,200,0.08);
+      border: 1px solid rgba(0,229,200,0.3);
+      border-radius: var(--r-md);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .cd-orch-label { font-size: 13px; font-weight: 600; color: var(--cyan); }
+    .cd-orch-sub   { font-size: 11px; color: var(--text-hint); margin-top: 2px; }
+    .cd-lines {
+      display: flex;
+      justify-content: space-around;
+      padding: 0 24px;
+      position: relative;
+      height: 28px;
+    }
+    .cd-lines::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 80px);
+      border-top: 1px dashed rgba(0,229,200,0.25);
+    }
+    .cd-line {
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,229,200,0.25), rgba(0,229,200,0.1));
+    }
+    .cd-containers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .cd-container {
+      border: 1px dashed rgba(0,229,200,0.2);
+      border-radius: var(--r-md);
+      padding: 14px;
+      position: relative;
+    }
+    .cd-container-tag {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-hint);
+      margin-bottom: 8px;
+    }
+    .cd-container-name {
+      font-size: 12px;
+      color: var(--text-body);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .cd-container-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .cd-pill {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-hint);
+    }
+    .cd-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      color: var(--cyan-dim);
+      margin-top: 8px;
+    }
+    .cd-status::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 6px var(--cyan);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    .container-features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .cf-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--r-lg);
+      padding: 1.5rem;
+    }
+    .cf-icon {
+      font-size: 24px;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .cf-card h4 { font-size: 15px; margin-bottom: 8px; }
+    .cf-card p  { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
     @media (max-width: 900px) {
       .tech-grid, .deploy-grid { grid-template-columns: 1fr; }
+      .cd-containers { grid-template-columns: 1fr; }
+      .container-features { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -240,10 +360,10 @@
         </div>
         <div class="stack-layer l-insp">
           <div class="stack-label-col">
-            <h4>INSP</h4>
+            <h4>Persona</h4>
             <div class="sub">Inspiration / persona</div>
           </div>
-          <div class="stack-desc">The agent's core identity, system prompt, domain expertise, and behavioural constraints. Vertical-specific INSPs ship pre-tuned for BioTech, iGaming, and Gov.</div>
+          <div class="stack-desc">The agent's core identity, system prompt, domain expertise, and behavioural constraints. Vertical-specific Wizards ship pre-tuned for BioTech, iGaming, and Gov.</div>
           <div class="stack-tag"><span class="tag tag-cyan">Foundation</span></div>
         </div>
       </div>
@@ -332,6 +452,99 @@
     </div>
   </section>
 
+  <hr class="divider" style="max-width:1200px; margin:0 auto;">
+
+  <!-- CONTAINER ORCHESTRATION -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Container orchestration</span>
+        <h2 class="display-md">Agents that spawn<br>agents.</h2>
+        <p class="lead" style="margin-top:12px; max-width:580px;">The real power of GEENii isn't a single agent — it's an orchestrator that spins up purpose-built subagents in isolated containers, delegates work, collects results, and tears them down. Smart services, on demand.</p>
+      </div>
+
+      <div class="container-diagram">
+        <div class="cd-orch">
+          <span style="font-size:22px;">🧠</span>
+          <div>
+            <div class="cd-orch-label">Orchestrator Agent</div>
+            <div class="cd-orch-sub">Receives task · Plans subagent strategy · Aggregates results · Returns unified response</div>
+          </div>
+        </div>
+        <div class="cd-lines">
+          <div class="cd-line"></div>
+          <div class="cd-line"></div>
+          <div class="cd-line"></div>
+        </div>
+        <div class="cd-containers">
+          <div class="cd-container">
+            <div class="cd-container-tag">container · subagent 01</div>
+            <div class="cd-container-name">Data Retrieval Agent</div>
+            <div class="cd-container-pills">
+              <span class="cd-pill">pubmed-rag</span>
+              <span class="cd-pill">web-search</span>
+              <span class="cd-pill">file-reader</span>
+            </div>
+            <div class="cd-status">running</div>
+          </div>
+          <div class="cd-container">
+            <div class="cd-container-tag">container · subagent 02</div>
+            <div class="cd-container-name">Analysis Agent</div>
+            <div class="cd-container-pills">
+              <span class="cd-pill">protein-folding</span>
+              <span class="cd-pill">risk-scorer</span>
+              <span class="cd-pill">python-exec</span>
+            </div>
+            <div class="cd-status">running</div>
+          </div>
+          <div class="cd-container">
+            <div class="cd-container-tag">container · subagent 03</div>
+            <div class="cd-container-name">Compliance Agent</div>
+            <div class="cd-container-pills">
+              <span class="cd-pill">iso-42001</span>
+              <span class="cd-pill">ema-formatter</span>
+              <span class="cd-pill">audit-log</span>
+            </div>
+            <div class="cd-status">running</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-features">
+        <div class="cf-card">
+          <span class="cf-icon">📦</span>
+          <h4>Isolated by default</h4>
+          <p>Each subagent runs in its own container — separate memory, separate tools, separate permissions. No cross-contamination. No shared state unless you explicitly allow it.</p>
+        </div>
+        <div class="cf-card">
+          <span class="cf-icon">⚡</span>
+          <h4>Spawned on demand</h4>
+          <p>Subagents are created when needed and destroyed when done. Your orchestrator pays only for active compute. Complex multi-step tasks decompose into parallel workstreams in seconds.</p>
+        </div>
+        <div class="cf-card">
+          <span class="cf-icon">🔁</span>
+          <h4>Smart service composition</h4>
+          <p>Chain subagents into reusable smart services — a data retrieval agent feeding an analysis agent feeding a compliance agent. Compose once, invoke forever, bill per call.</p>
+        </div>
+        <div class="cf-card">
+          <span class="cf-icon">🔐</span>
+          <h4>Scoped permissions</h4>
+          <p>Every container gets exactly the tools and data access it needs — nothing more. Subagents cannot escalate privileges or access resources outside their defined scope.</p>
+        </div>
+        <div class="cf-card">
+          <span class="cf-icon">📊</span>
+          <h4>Full observability</h4>
+          <p>Every subagent action, decision, and output is traced and logged individually. Debug at any layer of the hierarchy. Full audit trail from orchestrator decision to subagent execution.</p>
+        </div>
+        <div class="cf-card">
+          <span class="cf-icon">🌍</span>
+          <h4>Deploy anywhere</h4>
+          <p>Container-native means it runs anywhere containers run — your cloud, your data center, air-gapped environments. Same orchestration model, same API, regardless of infrastructure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- DEPLOYMENT -->
   <section class="section" style="padding-top:0;">
     <div class="container">
@@ -373,49 +586,63 @@
 
       <div class="quickstart">
         <div class="qs-header">
-          <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted); letter-spacing:0.08em; text-transform:uppercase;">Terminal</span>
+          <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted); letter-spacing:0.08em; text-transform:uppercase;">Python</span>
         </div>
         <div class="qs-body">
           <div class="qs-section">
             <div class="qs-section-header">
               <div class="qs-step-num">1</div>
-              <div class="qs-title">Install GEENii CLI</div>
+              <div class="qs-title">Install the GEENii SDK</div>
             </div>
-            <pre><span class="cmt"># Install via npm</span>
-<span class="fn">npm</span> install <span class="str">-g @geenii/cli</span>
+            <pre><span class="cmt"># Install via pip</span>
+<span class="fn">pip</span> install geenii
 
-<span class="cmt"># Or via curl</span>
-<span class="fn">curl</span> <span class="str">-fsSL https://geenii.io/install.sh</span> | sh</pre>
+<span class="cmt"># Or with extras for vertical support</span>
+<span class="fn">pip</span> install <span class="str">"geenii[biotech,compliance]"</span></pre>
           </div>
           <div class="qs-section">
             <div class="qs-section-header">
               <div class="qs-step-num">2</div>
-              <div class="qs-title">Initialise your first agent</div>
+              <div class="qs-title">Define your agent</div>
             </div>
-            <pre><span class="fn">geenii</span> init my-agent <span class="str">--vertical biotech</span>
+            <pre><span class="cmt"># agent.py</span>
+<span class="kw">from</span> geenii <span class="kw">import</span> Agent, Persona, Skill
+
+<span class="fn">agent</span> = Agent(
+    persona=Persona(<span class="str">"biotech-analyst-v2"</span>),
+    skills=[
+        Skill(<span class="str">"protein-folding"</span>),
+        Skill(<span class="str">"pubmed-rag"</span>),
+    ],
+    compliance=<span class="str">"iso-42001"</span>,
+    payments={<span class="str">"protocol"</span>: <span class="str">"mpp"</span>, <span class="str">"budget"</span>: <span class="str">"$10/day"</span>},
+)
 
 <span class="cmt"># This scaffolds:</span>
-<span class="cmt"># ├── geenii.config.ts   (agent config)</span>
-<span class="cmt"># ├── insp/              (agent persona)</span>
+<span class="cmt"># ├── agent.py           (agent definition)</span>
+<span class="cmt"># ├── persona/           (persona config)</span>
 <span class="cmt"># ├── skills/            (skill registry)</span>
 <span class="cmt"># └── tools/             (tool definitions)</span></pre>
           </div>
           <div class="qs-section">
             <div class="qs-section-header">
               <div class="qs-step-num">3</div>
-              <div class="qs-title">Configure and deploy</div>
+              <div class="qs-title">Spawn subagents and deploy</div>
             </div>
-            <pre><span class="cmt">// geenii.config.ts</span>
-<span class="kw">export default</span> {
-  <span class="fn">insp</span>: <span class="str">'biotech-analyst-v2'</span>,
-  <span class="fn">skills</span>: [<span class="str">'protein-folding'</span>, <span class="str">'pubmed-rag'</span>],
-  <span class="fn">compliance</span>: <span class="str">'iso-42001'</span>,
-  <span class="fn">payments</span>: { protocol: <span class="str">'mpp'</span>, budget: <span class="str">'$10/day'</span> },
-  <span class="fn">deployment</span>: <span class="str">'cloud'</span>  <span class="cmt">// or 'on-premise'</span>
-}
+            <pre><span class="kw">from</span> geenii <span class="kw">import</span> Orchestrator
 
-<span class="cmt"># Deploy</span>
-<span class="fn">geenii</span> deploy <span class="str">--env production</span>
+<span class="cmt"># Spin up an orchestrator with containerised subagents</span>
+<span class="fn">orch</span> = Orchestrator(
+    subagents=[
+        Agent(persona=Persona(<span class="str">"data-retrieval"</span>), skills=[Skill(<span class="str">"pubmed-rag"</span>)]),
+        Agent(persona=Persona(<span class="str">"analysis"</span>),      skills=[Skill(<span class="str">"protein-folding"</span>)]),
+        Agent(persona=Persona(<span class="str">"compliance"</span>),    skills=[Skill(<span class="str">"ema-formatter"</span>)]),
+    ],
+    deployment=<span class="str">"cloud"</span>,  <span class="cmt"># or "on-premise"</span>
+)
+
+result = <span class="kw">await</span> orch.<span class="fn">run</span>(<span class="str">"Analyse compound XJ-417 and generate EMA submission draft"</span>)
+
 <span class="cmt"># ✓ Agent live at https://agents.geenii.io/my-agent</span>
 <span class="cmt"># ✓ SLA: 99.9% · ISO-42001: verified · MPP: active</span></pre>
           </div>
